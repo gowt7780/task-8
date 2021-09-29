@@ -1,87 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
+
 import "./styles.css";
-import { useState } from "react";
 
-const bookDB = {
-  javascript: [
-    { name: "Eloquent JavaScript", rating: "4/5" },
-    { name: "You Don't Know JS", rating: "3.5/5" }
-  ],
-
-  fiction: [
-    {
-      name: "Shiva Trilogy",
-      rating: "5/5"
-    },
-    {
-      name: "Harry Potter and the Sorcerer's Stone",
-      rating: "4.5/5"
-    }
-  ],
-  business: [
-    {
-      name: "Never Split the Difference",
-      rating: "3.5/5"
-    },
-    {
-      name: "Loonshots",
-      rating: "5/5"
-    }
-  ]
+const emojiDictionary = {
+  "😊": "Smiling",
+  "😳": "disbelief",
+  "😔": "sad",
+  "🥡": "takeout box",
+  "❤️": "love",
+  "😑": "annoyance"
 };
 
+const emojis = Object.keys(emojiDictionary);
+
 export default function App() {
-  const [selectedGenre, setGenre] = useState("business");
-  function genreClickHandler(genre) {
-    setGenre(genre);
+  const [emoji, setEmoji] = useState(""); /** concept 2 is useState */
+  const [meaning, setMeaning] = useState("translation will appear here..");
+
+  function changeHandler(event) {
+    const inputEmoji = event.target.value;
+    setEmoji(inputEmoji);
+
+    if (inputEmoji in emojiDictionary) {
+      setMeaning(emojiDictionary[inputEmoji]);
+    } else {
+      setMeaning("failure to recognise this emoji");
+    }
   }
+
+  function emojiClickHandler(inputEmoji) {
+    setMeaning(emojiDictionary[inputEmoji]);
+  }
+
   return (
     <div className="App">
-      <h1> 📚 goodbooks </h1>
-      <p style={{ fontSize: "smaller" }}>
-        {" "}
-        Checkout my favorite books. Select a genre to get started{" "}
-      </p>
-
-      <div>
-        {Object.keys(bookDB).map((genre) => (
-          <button
-            onClick={() => genreClickHandler(genre)}
-            style={{
-              cursor: "pointer",
-              background: "#E5E7EB",
-              borderRadius: "0.5rem",
-              padding: "0.5rem  1rem",
-              border: "1px solid black",
-              margin: "1rem 0.3rem"
-            }}
-          >
-            {genre}
-          </button>
-        ))}
-      </div>
-      <hr />
-      <div style={{ textAlign: "left" }}>
-        <ul style={{ paddingInlineStart: "0" }}>
-          {bookDB[selectedGenre].map((book) => (
-            <li
-              key={book.name}
-              style={{
-                listStyle: "none",
-                padding: "1rem",
-                border: "1px solid #D1D5DB",
-                width: "70%",
-                margin: "1rem 0rem",
-                borderRadius: "0.5rem"
-              }}
-            >
-              {" "}
-              <div style={{ fontSize: "larger" }}> {book.name} </div>
-              <div style={{ fontSize: "smaller" }}> {book.rating} </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h1>inside outttttt</h1>
+      <input
+        onChange={changeHandler}
+        value={emoji}
+        placeholder={"Search your emoji"}
+        style={{
+          padding: "1em",
+          minWidth: "80%"
+        }}
+      />
+      <h2> {emoji} </h2> {}
+      <h3> {meaning} </h3> {}
+      {emojis.map((emoji) => (
+        <span
+          onClick={() => emojiClickHandler(emoji)}
+          style={{ fontSize: "2rem", padding: "0.5rem", cursor: "pointer" }}
+        >
+          {" "}
+          {emoji}{" "}
+        </span>
+      ))}
     </div>
   );
 }
