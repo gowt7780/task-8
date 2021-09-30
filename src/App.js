@@ -8,7 +8,11 @@ const emojiDictionary = {
   "😔": "sad",
   "🥡": "takeout box",
   "❤️": "love",
-  "😑": "annoyance"
+  "😑": "annoyance",
+  "🙃": "Gummy face",
+  "😚": "kissing face",
+  "💥": "collision",
+  "🧗‍♂️": "man climbing"
 };
 
 const emojis = Object.keys(emojiDictionary);
